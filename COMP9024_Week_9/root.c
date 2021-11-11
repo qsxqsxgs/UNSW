@@ -1,4 +1,4 @@
-// Approximation Algorithm implementation ... COMP9024 21T3
+// Approximation Algorithms implementation ... COMP9024 21T3
 
 #include <stdio.h>
 #include <math.h>
