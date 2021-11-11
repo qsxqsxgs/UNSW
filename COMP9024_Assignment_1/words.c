@@ -26,5 +26,7 @@ int main() {
       flag = scanf("%s", word);
       
       assert(flag == 1);
+
+      Vertex w[i] = newVertex(i, word);
    }
 }
