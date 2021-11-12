@@ -11,10 +11,11 @@ typedef struct Edge {
 } Edge;
 
 Graph  newGraph(int);
-Vertex newVertex(int, char);
+Vertex newVertex(int, char*);
 int    numOfVertices(Graph);
 void   insertEdge(Graph, Edge);
 void   removeEdge(Graph, Edge);
+bool   checkVertices(Vertex, Vertex);
 bool   adjacent(Graph, Vertex, Vertex);
 void   showGraph(Graph);
 void   freeGraph(Graph);

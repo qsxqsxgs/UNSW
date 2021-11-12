@@ -15,7 +15,7 @@ typedef struct GraphRep {
 // vertices are pairs of keys and words
 typedef struct VertexRep {
    int  key;
-   char word;
+   char word[31];
 } VertexRep;
 
 Graph newGraph(int V) {
@@ -28,27 +28,86 @@ Graph newGraph(int V) {
    g->nE = 0;
 
    // allocate memory for each row
-   g->edges = malloc(V * sizeof(Vertex));
+   g->edges = malloc(V * sizeof(int));
    assert(g->edges != NULL);
    // allocate memory for each column and initialise with 0
    for (i = 0; i < V; i++) {
-      g->edges[i] = calloc(V, sizeof(Vertex));
+      g->edges[i] = calloc(V, sizeof(int));
       assert(g->edges[i] != NULL);
    }
 
    return g;
 }
 
-Vertex newVertex(int K, char W) {
+Vertex newVertex(int K, char* W) {
+   int i;
    assert(K >= 0);
-   assert(strlen(&W) <= 31);
-   
+   assert(strlen(W) > 0 && strlen(W) <= 31);
+
    Vertex v = malloc(sizeof(VertexRep));
    assert(v != NULL);
    v->key = K;
-   v->word = W;
-   
+   // store string into vertex
+   for (i = 0; i < strlen(W); i++)
+     v->word[i] = W[i];
    return v;
+}
+
+// clarify relationship between vertices
+bool checkVertices(Vertex v, Vertex w) {
+   int  i,j;              // counters
+   int  diff;             // differences between words
+   bool flag;             // status check
+   
+   diff = 0;
+   flag = false;
+
+   // branch if two words have same length
+   if (strlen(v->word) == strlen(w->word)) {
+      for (i = 0; i < strlen(v->word); i++)
+        if (v->word[i] != w->word[i])
+          diff++;
+   }
+   // branch if two words have length of exactly 1 character difference
+   else if (abs(strlen(v->word) - strlen(w->word)) == 1) {
+      diff = 1;          // initialize difference
+      printf("success");
+      // check if each character in the shorter word is contained in the longer one
+      if (strlen(v->word) > strlen(w->word)) {
+         for (i = 0; i < strlen(w->word); i++) {
+            for (j = i; j < strlen(v->word) - i; j++) {
+               if (w->word[i] == v->word[j]) {
+                  flag = true;
+                  break;
+               }
+            }
+            // return false if not contained
+            if (!flag)
+               return false;
+         }
+      }
+      else {
+         for (i = 0; i < strlen(v->word); i++) {
+            for (j = i; j < strlen(w->word) - i; j++) {
+               if (v->word[i] == w->word[j]) {
+                  flag = true;
+                  break;
+               }
+            }
+            if (!flag)
+               return false;
+         }
+      } 
+   }
+   // return false if length difference >= 1
+   else
+     return false;
+
+   // return true if difference == 1
+   if (diff == 1)
+     return true;
+   else
+     return false;
 }
 
 int numOfVertices(Graph g) {
