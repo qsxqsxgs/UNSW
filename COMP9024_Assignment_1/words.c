@@ -38,6 +38,6 @@ int main() {
          Edge edge = {w[i], w[j]};
          insertEdge(words, edge);
        }
-   //
-   showGraph(words);
+   // show graph according to assignment format
+   showGraph(words, w);
 }

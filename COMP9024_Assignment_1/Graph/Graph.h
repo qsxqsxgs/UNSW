@@ -17,5 +17,5 @@ void   insertEdge(Graph, Edge);
 void   removeEdge(Graph, Edge);
 bool   checkVertices(Vertex, Vertex);
 bool   adjacent(Graph, Vertex, Vertex);
-void   showGraph(Graph);
+void   showGraph(Graph, Vertex*);
 void   freeGraph(Graph);

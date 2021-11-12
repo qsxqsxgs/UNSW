@@ -148,16 +148,18 @@ bool adjacent(Graph g, Vertex v, Vertex w) {
    return (g->edges[v->key][w->key] != 0);
 }
 
-void showGraph(Graph g) {
-    assert(g != NULL);
-    int i, j;
+void showGraph(Graph g, Vertex *v) {
+   assert(g != NULL);
+   int i, j;
 
-    printf("Number of vertices: %d\n", g->nV);
-    printf("Number of edges: %d\n", g->nE);
-    for (i = 0; i < g->nV; i++)
-       for (j = i + 1; j < g->nV; j++)
-	      if (g->edges[i][j])
-	        printf("Edge %d - %d\n", i, j);
+   for (i = 0; i < g->nV; i++) {
+      printf("%s:", &v[i]->word);
+      for (j = i + 1; j < g->nV; j++) {
+         if (g->edges[i][j])
+           printf(" %s", &v[j]->word);
+      }
+      printf("\n");
+   }
 }
 
 void freeGraph(Graph g) {
