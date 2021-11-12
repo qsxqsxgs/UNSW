@@ -48,8 +48,8 @@ Vertex newVertex(int K, char* W) {
    assert(v != NULL);
    v->key = K;
    // store string into vertex
-   for (i = 0; i < strlen(W); i++)
-     v->word[i] = W[i];
+   strcpy(v->word,W);
+   
    return v;
 }
 
@@ -71,11 +71,11 @@ bool checkVertices(Vertex v, Vertex w) {
    // branch if two words have length of exactly 1 character difference
    else if (abs(strlen(v->word) - strlen(w->word)) == 1) {
       diff = 1;          // initialize difference
-      printf("success");
+
       // check if each character in the shorter word is contained in the longer one
       if (strlen(v->word) > strlen(w->word)) {
          for (i = 0; i < strlen(w->word); i++) {
-            for (j = i; j < strlen(v->word) - i; j++) {
+            for (j = i; j < strlen(v->word); j++) {
                if (w->word[i] == v->word[j]) {
                   flag = true;
                   break;
@@ -84,11 +84,13 @@ bool checkVertices(Vertex v, Vertex w) {
             // return false if not contained
             if (!flag)
                return false;
+            // reset flag
+            flag = false;
          }
       }
       else {
          for (i = 0; i < strlen(v->word); i++) {
-            for (j = i; j < strlen(w->word) - i; j++) {
+            for (j = i; j < strlen(w->word); j++) {
                if (v->word[i] == w->word[j]) {
                   flag = true;
                   break;
@@ -96,6 +98,7 @@ bool checkVertices(Vertex v, Vertex w) {
             }
             if (!flag)
                return false;
+            flag = false;
          }
       } 
    }

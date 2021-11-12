@@ -20,21 +20,24 @@ int main() {
    // initialize graph
    Graph words = newGraph(num);
 
+   // initialize vertices with users input
    for (i = 0; i < num; i++) {
       printf("Enter a word: ");
-      flag = scanf("%s", w[i]->word);
+      flag = scanf("%s", word);
       
       assert(flag == 1);
-      // initialize vertices
-      //w[i] = newVertex(i, word);
+      w[i] = newVertex(i, word);
    }
 
-   //for (i = 0; i < num; i++)
-     //for (j = i + 1; j < num; j++)
-       //if (checkVertices(w[i], w[j])) {
-        // Edge edge = {w[i], w[j]};
-        // insertEdge(words, edge);
-       //}
+   printf("\n");
+
+   // insert edge to graph according to vertices relation
+   for (i = 0; i < num; i++)
+     for (j = i + 1; j < num; j++)
+       if (checkVertices(w[i], w[j])) {
+         Edge edge = {w[i], w[j]};
+         insertEdge(words, edge);
+       }
    //
-   //showGraph(words);
+   showGraph(words);
 }
