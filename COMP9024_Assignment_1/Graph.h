@@ -2,7 +2,15 @@
 #include <stdbool.h>
 
 #include "stack.h"
-
+typedef struct node {
+    int data;
+    struct node *next;
+} NodeT;
+typedef struct StackRep {
+    int    height;   // #elements on stack
+    NodeT *top;      // ptr to first element
+} StackRep;
+typedef struct StackRep  *stack;
 typedef struct GraphRep  *Graph;
 typedef struct VertexRep *Vertex;
 
