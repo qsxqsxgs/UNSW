@@ -40,4 +40,30 @@ int main() {
        }
    // show graph according to assignment format
    showGraph(words, w);
+
+   printf("\n");
+
+   int  max;
+   int  length[num];        // store longest path of each node
+   bool visit[num];         // store visited status of each node
+
+   // initialize arrays
+   for (i = 0; i < num; i++) {
+      length[i] = 0;
+      visit[i] = false;
+   }
+
+   // call DFS to traversal the graph
+   for (i = 0; i < num; i++)
+     if (!visit[i])
+       DFS(words, i, length, visit);
+
+   // calculate maximum sequence length
+   max = 0;
+   for (i = 0; i < num; i++)
+     if (max < length[i])
+       max = length[i];
+   max = max + 1;
+
+   printf("Maximum sequence length: %d\n", max);
 }

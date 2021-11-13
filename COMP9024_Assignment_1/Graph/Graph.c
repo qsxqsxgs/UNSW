@@ -40,7 +40,6 @@ Graph newGraph(int V) {
 }
 
 Vertex newVertex(int K, char* W) {
-   int i;
    assert(K >= 0);
    assert(strlen(W) > 0 && strlen(W) <= 31);
 
@@ -146,6 +145,26 @@ bool adjacent(Graph g, Vertex v, Vertex w) {
    assert(g != NULL && validV(g,v) && validV(g,w));
 
    return (g->edges[v->key][w->key] != 0);
+}
+
+// depth first search check longest path of each node
+void DFS(Graph g, int i, int *length, bool *visit) {
+   int j;
+   int next;
+
+   if (visit[i])
+     return;
+
+   visit[i] = true;
+   for (j = i + 1; j < g->nV; j++) {
+      if (g->edges[i][j] == 1) {
+         next = j;
+         if (!visit[next])
+           DFS(g, next, length, visit);
+         if (length[i] < length[next] + 1)
+           length[i] = length[next] + 1;
+      }
+   }
 }
 
 void showGraph(Graph g, Vertex *v) {
