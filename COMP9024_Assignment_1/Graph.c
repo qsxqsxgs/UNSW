@@ -1,10 +1,11 @@
 // Graph ADT
 // Adjacency Matrix Representation ... COMP9024 21T3
-#include "Graph.h"
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
+#include "Graph.h"
 
 typedef struct GraphRep {
    int  **edges;   // adjacency matrix
@@ -68,7 +69,7 @@ bool checkVertices(Vertex v, Vertex w) {
           diff++;
    }
    // branch if two words have length of exactly 1 character difference
-   else if (abs(strlen(v->word) - strlen(w->word)) == 1) {
+   else if (strlen(v->word) - strlen(w->word) == 1 || strlen(v->word) - strlen(w->word) == -1) {
       diff = 1;          // initialize difference
 
       // check if each character in the shorter word is contained in the longer one
@@ -171,17 +172,35 @@ void DFS_max(Graph g, int key, int *length, bool *visit) {
 void DFS_path(Graph g, Vertex *v, stack path, int key, int length) {
    int i;
 
-   if (length == 1) {
+   if (length == 0) {
+      int   n;
+      int   k;
+      stack new = reverseStack(path);
+      
+      n = new->height;
+      for (i = 0; i < n; i++) {
+         if (i == n - 1) {
+            k = StackPop(new);
+            printf("%s\n", v[k]->word);
+            StackPush(path, k);
+         }
+         else {
+            k = StackPop(new);
+            printf("%s -> ", v[k]->word);
+            StackPush(path, k);
+         }
+      }
+      StackPop(path);
       return;
    }
    
    for (i = key + 1; i < g->nV; i++) {
       if (g->edges[key][i] == 1) {
-         StackPush(path, key);
-         length = length - 1;
-         DFS_path(g, v, path, i, length);
+         StackPush(path, i);
+         DFS_path(g, v, path, i, length - 1);
       }
    }
+   StackPop(path);
    return;
 }
 
@@ -190,10 +209,10 @@ void showGraph(Graph g, Vertex *v) {
    int i, j;
 
    for (i = 0; i < g->nV; i++) {
-      printf("%s:", &v[i]->word);
+      printf("%s:", v[i]->word);
       for (j = i + 1; j < g->nV; j++) {
          if (g->edges[i][j])
-           printf(" %s", &v[j]->word);
+           printf(" %s", v[j]->word);
       }
       printf("\n");
    }

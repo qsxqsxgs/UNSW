@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#include "Graph.c"
+#include "Graph.h"
 
 int main() {
    int    i, j;           // counters
@@ -43,9 +43,10 @@ int main() {
 
    printf("\n");
 
-   int  max;
-   int  length[num];        // store longest path of each node
-   bool visit[num];         // store visited status of each node
+   int   max;
+   int   length[num];        // store longest path of each node
+   bool  visit[num];         // store visited status of each node
+   stack s = newStack();
 
    // initialize arrays
    for (i = 0; i < num; i++) {
@@ -66,6 +67,15 @@ int main() {
    max = max + 1;          // convert path length to sequence length
 
    printf("Maximum sequence length: %d\n", max);
+   printf("Maximal sequence(s):\n");
 
+   max = max - 1;
+   for (i = 0; i < num; i++)
+     if (length[i] == max) {
+       StackPush(s, i);
+       DFS_path(words, w, s, i, max);
+     }
    
+   dropStack(s);
+   freeGraph(words);
 }

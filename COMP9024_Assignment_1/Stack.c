@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+
 #include "stack.h"
 
 typedef struct node {
@@ -25,9 +26,9 @@ stack newStack() {
 }
 
 stack reverseStack(stack S) {
-    int i;
-    int n;
-    int temp;
+    int   i;
+    int   n;
+    int   temp;
     stack new = newStack();
 
     n = S->height;

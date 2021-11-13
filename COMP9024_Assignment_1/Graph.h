@@ -1,6 +1,7 @@
 // Graph ADT interface ... COMP9024 21T3
 #include <stdbool.h>
-#include "stack.c"
+
+#include "stack.h"
 
 typedef struct GraphRep  *Graph;
 typedef struct VertexRep *Vertex;
@@ -18,7 +19,7 @@ void   removeEdge(Graph, Edge);
 bool   adjacent(Graph, Vertex, Vertex);
 void   freeGraph(Graph);
 
-// revised or new function
+// new or revised functions
 Vertex newVertex(int, char*);
 bool   checkVertices(Vertex, Vertex);
 void   DFS_max(Graph, int, int*, bool*);
