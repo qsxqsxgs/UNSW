@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#include "Graph/Graph.c"
+#include "Graph.c"
 
 int main() {
    int    i, j;           // counters
@@ -56,14 +56,14 @@ int main() {
    // call DFS to traversal the graph
    for (i = 0; i < num; i++)
      if (!visit[i])
-       DFS(words, i, length, visit);
+       DFS_Find(words, i, length, visit);
 
    // calculate maximum sequence length
    max = 0;
    for (i = 0; i < num; i++)
      if (max < length[i])
        max = length[i];
-   max = max + 1;
+   max = max + 1;          // convert path length to sequence length
 
    printf("Maximum sequence length: %d\n", max);
 }

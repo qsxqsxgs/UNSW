@@ -1,6 +1,7 @@
 // Graph ADT
 // Adjacency Matrix Representation ... COMP9024 21T3
 #include "Graph.h"
+#include "Stack.c"
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -148,7 +149,7 @@ bool adjacent(Graph g, Vertex v, Vertex w) {
 }
 
 // depth first search check longest path of each node
-void DFS(Graph g, int i, int *length, bool *visit) {
+void DFS_Find(Graph g, int i, int *length, bool *visit) {
    int j;
    int next;
 
@@ -160,13 +161,16 @@ void DFS(Graph g, int i, int *length, bool *visit) {
       if (g->edges[i][j] == 1) {
          next = j;
          if (!visit[next])
-           DFS(g, next, length, visit);
+           DFS_Find(g, next, length, visit);
          if (length[i] < length[next] + 1)
            length[i] = length[next] + 1;
       }
    }
 }
 
+void DFS_Print(Graph g, int i, int length, stack path) {
+   
+}
 void showGraph(Graph g, Vertex *v) {
    assert(g != NULL);
    int i, j;
