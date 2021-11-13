@@ -56,7 +56,7 @@ int main() {
    // call DFS to traversal the graph
    for (i = 0; i < num; i++)
      if (!visit[i])
-       DFS_Find(words, i, length, visit);
+       DFS_max(words, i, length, visit);
 
    // calculate maximum sequence length
    max = 0;
@@ -66,4 +66,6 @@ int main() {
    max = max + 1;          // convert path length to sequence length
 
    printf("Maximum sequence length: %d\n", max);
+
+   
 }

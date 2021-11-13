@@ -1,5 +1,6 @@
 // Stack ADT implementation ... COMP9024 21T3
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 #include "stack.h"
@@ -21,6 +22,22 @@ stack newStack() {
     S->height = 0;
     S->top = NULL;
     return S;
+}
+
+stack reverseStack(stack S) {
+    int i;
+    int n;
+    int temp;
+    stack new = newStack();
+
+    n = S->height;
+
+    for (i = 0; i < n; i++) {
+        temp = S->top->data;
+        StackPop(S);
+        StackPush(new, temp);
+    }
+    return new;
 }
 
 // remove unwanted stack

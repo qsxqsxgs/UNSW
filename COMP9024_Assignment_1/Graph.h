@@ -1,5 +1,6 @@
 // Graph ADT interface ... COMP9024 21T3
 #include <stdbool.h>
+#include "stack.c"
 
 typedef struct GraphRep  *Graph;
 typedef struct VertexRep *Vertex;
@@ -11,12 +12,15 @@ typedef struct Edge {
 } Edge;
 
 Graph  newGraph(int);
-Vertex newVertex(int, char*);
 int    numOfVertices(Graph);
 void   insertEdge(Graph, Edge);
 void   removeEdge(Graph, Edge);
-bool   checkVertices(Vertex, Vertex);
 bool   adjacent(Graph, Vertex, Vertex);
-void   DFS_Find(Graph, int, int *, bool *);
-void   showGraph(Graph, Vertex*);
 void   freeGraph(Graph);
+
+// revised or new function
+Vertex newVertex(int, char*);
+bool   checkVertices(Vertex, Vertex);
+void   DFS_max(Graph, int, int*, bool*);
+void   DFS_path(Graph, Vertex*, stack, int, int);
+void   showGraph(Graph, Vertex*);

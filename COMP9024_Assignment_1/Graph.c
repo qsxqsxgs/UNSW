@@ -1,7 +1,6 @@
 // Graph ADT
 // Adjacency Matrix Representation ... COMP9024 21T3
 #include "Graph.h"
-#include "Stack.c"
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -149,28 +148,43 @@ bool adjacent(Graph g, Vertex v, Vertex w) {
 }
 
 // depth first search check longest path of each node
-void DFS_Find(Graph g, int i, int *length, bool *visit) {
-   int j;
+void DFS_max(Graph g, int key, int *length, bool *visit) {
+   int i;
    int next;
 
-   if (visit[i])
+   if (visit[key])
      return;
 
-   visit[i] = true;
-   for (j = i + 1; j < g->nV; j++) {
-      if (g->edges[i][j] == 1) {
-         next = j;
+   visit[key] = true;
+   for (i = key + 1; i < g->nV; i++) {
+      if (g->edges[key][i] == 1) {
+         next = i;
          if (!visit[next])
-           DFS_Find(g, next, length, visit);
-         if (length[i] < length[next] + 1)
-           length[i] = length[next] + 1;
+           DFS_max(g, next, length, visit);
+         if (length[key] < length[next] + 1)
+           length[key] = length[next] + 1;
       }
    }
+   return;
 }
 
-void DFS_Print(Graph g, int i, int length, stack path) {
+void DFS_path(Graph g, Vertex *v, stack path, int key, int length) {
+   int i;
+
+   if (length == 1) {
+      return;
+   }
    
+   for (i = key + 1; i < g->nV; i++) {
+      if (g->edges[key][i] == 1) {
+         StackPush(path, key);
+         length = length - 1;
+         DFS_path(g, v, path, i, length);
+      }
+   }
+   return;
 }
+
 void showGraph(Graph g, Vertex *v) {
    assert(g != NULL);
    int i, j;

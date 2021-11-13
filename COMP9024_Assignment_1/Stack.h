@@ -8,3 +8,5 @@ void  dropStack(stack);       // remove unwanted stack
 bool  StackIsEmpty(stack);    // check whether stack is empty
 void  StackPush(stack, int);  // insert an int on top of stack
 int   StackPop(stack);        // remove int from top of stack
+
+stack reverseStack(stack);    // reverse stack
