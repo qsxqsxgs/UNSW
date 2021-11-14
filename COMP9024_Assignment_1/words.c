@@ -1,5 +1,31 @@
 // Word Sequence Algorithms implementation ... COMP9024 21T3
 
+/* 
+ * Complexity Analysis:
+ * For whole program: O(n) = n ^ 3.
+ * 
+ * For Task 1: O(n) = n ^ 2.
+ * 
+ * Compare each node with its following nodes.
+ * Node N compared N - 1 times.
+ * Node 1 compared 1 time.
+ * Sum: (N + 1) * N / 2.
+ * 
+ * 
+ * For Task 2: O(n) = n ^ 3.
+ * 
+ * For DFS_max: O(n) = n.
+ * With a "visit" array of nodes, each node is examined just once.
+ * 
+ * For DFS_path: O(n) = n ^ 3.
+ * Without the "visit" array, each node is examined multiple times.
+ * Worst case happens when sequence of every node is equal.
+ * Node N compared (N + 1) * N / 2 times.
+ * Node 1 compared 1 time.
+ * Sum: N * (N + 1) * (2 * N + 1) / 6.
+ * 
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
@@ -44,9 +70,9 @@ int main() {
    printf("\n");
 
    int   max;                // maximum sequence length
-   int   length[num];        // store longest path of each node
-   bool  visit[num];         // store visited status of each node
-   stack s = newStack();     // stack used in DFS_path
+   int   length[num];        // longest path of each node
+   bool  visit[num];         // visited status of each node
+   stack s = newStack();     // used in DFS_path
 
    // initialize arrays
    for (i = 0; i < num; i++) {
@@ -64,7 +90,8 @@ int main() {
    for (i = 0; i < num; i++)
      if (max < length[i])
        max = length[i];
-   max = max + 1;          // convert path length to sequence length
+   // convert path length to sequence length
+   max = max + 1;
 
    printf("Maximum sequence length: %d\n", max);
    printf("Maximal sequence(s):\n");
