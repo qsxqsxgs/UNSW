@@ -25,6 +25,7 @@ stack newStack() {
     return S;
 }
 
+// reverse given stack
 stack reverseStack(stack S) {
     int   i;
     int   n;

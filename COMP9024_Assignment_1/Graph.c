@@ -29,11 +29,11 @@ Graph newGraph(int V) {
    g->nE = 0;
 
    // allocate memory for each row
-   g->edges = malloc(V * sizeof(int));
+   g->edges = malloc(V * sizeof(Vertex));
    assert(g->edges != NULL);
    // allocate memory for each column and initialise with 0
    for (i = 0; i < V; i++) {
-      g->edges[i] = calloc(V, sizeof(int));
+      g->edges[i] = calloc(V, sizeof(Vertex));
       assert(g->edges[i] != NULL);
    }
 
@@ -150,34 +150,47 @@ bool adjacent(Graph g, Vertex v, Vertex w) {
 
 // depth first search check longest path of each node
 void DFS_max(Graph g, int key, int *length, bool *visit) {
-   int i;
-   int next;
+   int i;           // counter
+   int next;        // next key for recursion
 
-   if (visit[key])
+   if (visit[key])  // return if visited
      return;
-
+   
+   // set visit status of current node key
    visit[key] = true;
+   // traversal function
    for (i = key + 1; i < g->nV; i++) {
+      // branch if there is edge
       if (g->edges[key][i] == 1) {
          next = i;
          if (!visit[next])
            DFS_max(g, next, length, visit);
+         // longest path of key is the longest path of its neighbour + 1
          if (length[key] < length[next] + 1)
            length[key] = length[next] + 1;
       }
    }
+   // longest path remains 0 if no neighbour found
    return;
 }
 
+// depth first search print longest paths
 void DFS_path(Graph g, Vertex *v, stack path, int key, int length) {
-   int i;
+   int i;           // counter
 
+   // print the path if length = 0
    if (length == 0) {
-      int   n;
-      int   k;
+      int   n;      // height of stack
+      int   k;      // store current value popped from stack
+
+      // reverse the stack for demonstration
       stack new = reverseStack(path);
       
       n = new->height;
+      /*
+       * print the path according to assignment format
+       * push the key back to stack
+       */
       for (i = 0; i < n; i++) {
          if (i == n - 1) {
             k = StackPop(new);
@@ -190,16 +203,27 @@ void DFS_path(Graph g, Vertex *v, stack path, int key, int length) {
             StackPush(path, k);
          }
       }
+      /* 
+       * pop the last called key
+       * return to previous recursion
+       */
       StackPop(path);
       return;
    }
    
+   // traversal function
    for (i = key + 1; i < g->nV; i++) {
+      // branch if there is edge
       if (g->edges[key][i] == 1) {
          StackPush(path, i);
          DFS_path(g, v, path, i, length - 1);
       }
    }
+   /*
+    * if no edge for current key
+    * pop the last called key
+    * return to previous recursion
+    */
    StackPop(path);
    return;
 }

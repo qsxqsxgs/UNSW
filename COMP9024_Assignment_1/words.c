@@ -43,18 +43,18 @@ int main() {
 
    printf("\n");
 
-   int   max;
+   int   max;                // maximum sequence length
    int   length[num];        // store longest path of each node
    bool  visit[num];         // store visited status of each node
-   stack s = newStack();
+   stack s = newStack();     // stack used in DFS_path
 
    // initialize arrays
    for (i = 0; i < num; i++) {
       length[i] = 0;
-      visit[i] = false;
+      visit[i]  = false;
    }
 
-   // call DFS to traversal the graph
+   // traversal the graph
    for (i = 0; i < num; i++)
      if (!visit[i])
        DFS_max(words, i, length, visit);
@@ -69,9 +69,12 @@ int main() {
    printf("Maximum sequence length: %d\n", max);
    printf("Maximal sequence(s):\n");
 
+   // convert sequence length to path length
    max = max - 1;
+   // traversal the graph and print the maximal sequence(s)
    for (i = 0; i < num; i++)
      if (length[i] == max) {
+       // initialize stack
        StackPush(s, i);
        DFS_path(words, w, s, i, max);
      }
