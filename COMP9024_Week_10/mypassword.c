@@ -6,7 +6,7 @@ int main() {
   int  key;
   int  flag;
   int  seed, length;
-  char password[33];
+  char password[32];
 
   flag = scanf("%d", &seed);
   assert(flag == 1);
@@ -20,6 +20,6 @@ int main() {
     password[i] = key;
   }
 
-  password[length] = '\0';
+  password[length] = 0;
   printf("%s", password);
 }
