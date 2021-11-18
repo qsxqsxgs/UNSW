@@ -2,7 +2,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "BST.c"
+#include "BST.h"
 
 #define MAX_STR_LEN 20
 

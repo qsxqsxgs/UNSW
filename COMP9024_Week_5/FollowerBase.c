@@ -1,4 +1,4 @@
-#include "WGraph.c"
+#include "WGraph.h"
 
 // Follower Base Alogrithms Implementation
 // Edge Initialiaztion
