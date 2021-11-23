@@ -391,3 +391,95 @@ Therefore,
 $$
 B(n)=T(\frac{n-1}{2})
 $$
+
+## Problem 7
+
+![](img/Problem_7_1.png)
+
+![](img/Problem_7_2.png)
+
+### (a)
+
+$$
+p_1(n+1)=\frac{1}{2}\ p_1(n)
+$$
+
+$$
+p_2(n+1)=\frac{1}{2}\ p_1(n)\ +\ \frac{1}{4}\ p_2(n)
+$$
+
+$$
+p_3(n+1)=\frac{1}{4}\ p_2(n)\ +\ \frac{1}{2}\ p_3(n)
+$$
+
+$$
+p_4(n+1)=\frac{1}{4}\ p_2(n)\ +\ \frac{1}{2}\ p_4(n)
+$$
+
+$$
+p_5(n+1)=\frac{1}{4}\ p_2(n)\ +\ \frac{1}{2}\ p_3(n)\ +\ \frac{1}{2}\ p_4(n)\ +\ p_5(n)
+$$
+
+### (b)
+
+#### (ii)*
+
+To prove, for all $n\in \mathbb{N}:p_2(n)=2(\frac{1}{2^n}-\frac{1}{4^n})$, substitute $p_1(n)$ in the recurrence equation of $p_2(n+1)$:
+$$
+p_2(n+1)&=&\frac{1}{2^{n+1}}+\frac{1}{4}\ p_2(n)\\
+p_2(n)&=&\frac{1}{2^n}+\frac{1}{4}\ p_2(n-1)\\
+2^np_2(n)&=&\frac{1}{2}\ 2^{n-1}p_2(n-1)+1
+$$
+Let $a_n=2^np_2(n)$​, then:
+$$
+a_n&=&\frac{1}{2}\ a_{n-1}+1\\
+a_n-2&=&\frac{1}{2}\ (a_{n-1}-2)
+$$
+Let $b_n=a_n-2$​, then:
+$$
+\frac{b_n}{b_{n-1}}=\frac{1}{2}
+$$
+$b_1=a_1-2=2\ p_2(1)-2$​, then:
+$$
+p_2(1)=\frac{1}{2}+\frac{1}{4}\ p_2(0)
+$$
+$p_2(0)=0$, hence, $b_1=-1$​, then:
+$$
+b_n&=&-\frac{1}{2^{n-1}}\\
+a_n&=&2-\frac{1}{2^{n-1}}\\
+p_2(n)&=&\frac{2-\frac{1}{2^{n-1}}}{2^n}\\
+&=&\frac{2\ (1-\frac{1}{2^n})}{2^n}\\
+&=&2\ (\frac{1}{2^n}-\frac{1}{4^n})
+$$
+
+### (c)
+
+At time $3$​, the probability for each location is:
+$$
+p_1(3)&=&\frac{1}{8}\\
+p_2(3)&=&\frac{7}{32}\\
+p_3(3)&=&\frac{5}{32}\\
+p_4(3)&=&\frac{5}{32}\\
+p_5(3)&=&\frac{11}{32}\\
+$$
+Then, the expected value of $X_3$​ can be calculated as:
+$$
+\begin{aligned}
+\text{expected value of $X_3$}&=0\times p_1(3)+1\times p_2(3)+2\times (p_3(3)+p_4(3))+3\times p_5(3)\\
+&=\frac{7}{32}+\frac{20}{32}+\frac{33}{32}\\
+&=\frac{15}{8}
+\end{aligned}
+$$
+
+## Problem 8
+
+![](img/Problem_8.png)
+
+### (a)
+
+$$
+p_D(n+1)=\frac{1}{2}\ p_B(n)+p_D(n)
+$$
+
+
+
