@@ -11,7 +11,7 @@ void control(int num) {
   }
 }
 
-int fibonacci(int num) {
+unsigned long long int fibonacci(int num) {
   if (num == 1)
     return 1;
   if (num == 2)
