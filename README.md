@@ -20,7 +20,7 @@ A brief introduction is provided for each course.
   
   - Implementations given above ADT (Abstract Data Type)
   
-  - Altogether 1 assignment and 5 quizzes
+  - Altogether 1 assignment and 10 problem sets
   
 - COMP9032............Microprocessor and Interfacing
 
