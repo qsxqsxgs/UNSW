@@ -18,9 +18,9 @@ A brief introduction is provided for each course.
 
   - Queue, Stack, List, Graph, BST, etc...
   
-  - Implementations given above ADT (Abstract Data Type)
+  - Implementations given above ADT
   
-  - Altogether 1 assignment and 5 quizzes
+  - Altogether 1 assignment and 10 problem sets
   
 - COMP9032............Microprocessor and Interfacing
 
