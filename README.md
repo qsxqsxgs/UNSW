@@ -1,6 +1,6 @@
 # UNSW-Homework
 
-This repository contains all of the workout from courses in University of New South Whale.
+This repository consists of all workout from courses in University of New South Whale.
 
 Following list shows the course name in accordance with their course ID.
 
