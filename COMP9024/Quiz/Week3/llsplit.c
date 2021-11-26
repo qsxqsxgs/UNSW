@@ -7,8 +7,58 @@ typedef struct node {
    struct node *next;
 } NodeT;
 
+NodeT *makeNode(int v) {
+   NodeT *new = malloc(sizeof(NodeT));
+   assert(new != NULL);
+   new->data = v;       // initialise data
+   new->next = NULL;    // initialise link to next node
+   return new;          // return pointer to new node
+}
+
+NodeT *joinLL(NodeT *list, int v) {
+   NodeT *p;
+   NodeT *tail;
+
+   p = makeNode(v);
+   tail = list;
+
+   if (tail == NULL)
+     return p;
+
+   while (tail->next != NULL)
+     tail = tail->next;
+
+   tail->next = p;
+   return list;
+}
+
+void splitList(NodeT *list) {
+   assert(list != NULL);
+
+   NodeT *prev, *curr;
+
+   prev = list;
+   curr = list->next;
+   while (curr != NULL) {
+      prev->next = curr->next;
+      prev = curr;
+      curr = curr->next;
+   }
+}
+
+void showLL(NodeT *list) {
+   NodeT *p;
+   for (p = list; p != NULL; p = p->next) {
+      if (p->next == NULL)
+        printf("%d", p->data);
+      else
+        printf("%d-->", p->data);
+   }
+}
+
 void freeLL(NodeT *list) {
    NodeT *p, *temp;
+
    p = list;
    while (p != NULL) {
       temp = p->next;
@@ -17,93 +67,39 @@ void freeLL(NodeT *list) {
    }
 }
 
-void showLL(NodeT *list, int length) {
-   NodeT *p;
-   if (list == NULL){
-      printf("Done.");
-   } else {
-      int i = 0;
-      while (i < 3*length){
-         if (i == 0){
-            p = list;
-            printf("Done. List is ");
-         }
-         if (i == length){
-            p = list;
-            i ++;
-            printf("Odd-numbered elements are ");
-         }
-         if (i == 2*length){
-            printf("%d\n", p->data);
-            p = list->next;
-            printf("Even-numbered elements are ");
-            i ++;
-         }
-         
-         if (i < length){
-            if (p->next == NULL){
-              printf("%d\n", p->data);
-            } else {
-              printf("%d-->", p->data);
-            }
-         p = p->next;
-         i ++;
-         } else if(i < 2*length) {
-            printf("%d-->", p->data);
-            p = (p->next)->next;
-            i += 2;
-         } else if(i > 2*length && i <= 3*length){
-            if ((p->next)->next == NULL){
-              printf("%d\n", p->data);
-            } else {
-              printf("%d-->", p->data);
-            }
-         p = (p->next)->next;
-         i += 2;
-         }
-      }
-   }
-}
-
-NodeT *makeNode(int v) {
-   NodeT *new = malloc(sizeof(NodeT));
-   assert(new != NULL);
-   new -> data = v;
-   new -> next = NULL;
-   return new;
-}
-
-NodeT *joinLL(NodeT *list, int v) {
-   NodeT *new = makeNode(v);
-   list -> next = new;
-   return new;
-}
-
 int main() {
+   int    num;
+   int    flag;
    NodeT *all = NULL;
-   NodeT *head = NULL;
 
-   int flag, num, len;
    printf("Enter a number: ");
-   flag = scanf("%d", &num);
-   while(flag == 1){
-      if(all == NULL){
-         all = makeNode(num);
-         head = all;
-         len = 1;
-         printf("Enter a number: ");
-         flag = scanf("%d", &num);
-      } else {
-         all = joinLL(all, num);
-         len ++;
-         printf("Enter a number: ");
-         flag = scanf("%d", &num);
-      }
+   while (scanf("%d", &num) == 1) {
+      all = joinLL(all, num);
+      printf("Enter a number: ");
    }
 
-   //printf("%d", len);
-   showLL(head, len);
-   freeLL(head);
+   if (all != NULL) {
+      printf("Done. List is ");
+      showLL(all);
+      //freeLL(all);
+   }
+   else {
+      printf("Done.");
+   }
 
-   return 0;
+   printf("\n");
+
+   NodeT *odd, *even;
+   odd = all;
+   even = all->next;
+   splitList(all);
+
+   printf("Odd-numbered elements are ");
+   showLL(odd);
+   printf("\n");
+
+   printf("Even-numbered elements are ");
+   showLL(even);
+
+   freeLL(all);
 }
