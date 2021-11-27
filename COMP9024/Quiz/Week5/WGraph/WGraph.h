@@ -19,5 +19,3 @@ void  removeEdge(Graph, Edge);
 int   adjacent(Graph, Vertex, Vertex);  // returns weight, or 0 if not adjacent
 void  showGraph(Graph);
 void  freeGraph(Graph);
-int countFollow(Graph, Vertex);
-int countFollowed(Graph, Vertex);

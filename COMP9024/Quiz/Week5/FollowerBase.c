@@ -1,196 +1,78 @@
-#include "WGraph.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "./WGraph/WGraph.h"
 
-// Follower Base Alogrithms Implementation
-// Edge Initialiaztion
-Edge *newEdge(Vertex v, Vertex w) {
-   Edge *new = malloc(sizeof(Edge));
-   assert(new != NULL);
-   new -> v = v;
-   new -> w = w;
-   new -> weight = 1;
-   return new;
-}
-// List Initialization and Bubble Sort
-typedef struct node {
-  Vertex v;
-  int f1;
-  int f2;
-  struct node *next;
-}NodeT;
+typedef struct Node {
+   int key;
+   int in;
+   int out;
+} Node;
 
-NodeT *newList(Graph g, Vertex v) {
-  NodeT *p = malloc(sizeof(NodeT));
-  assert(p != NULL);
-  p -> v = v;
-  p -> f1 = countFollow(g, v);
-  p -> f2 = countFollowed(g, v);
-  p -> next = NULL;
-  return p;
-}
-
-NodeT *joinList(Graph g, Vertex v, NodeT *p) {
-  NodeT *new = newList(g, v);
-  p -> next = new;
-  return new;
-}
-
-void freeList(NodeT *list) {
-   NodeT *p, *temp;
-   p = list;
-   while (p != NULL) {
-      temp = p->next;
-      free(p);
-      p = temp;
+void insertionSort(Node array[], int n) {
+   int i;
+   for (i = 1; i < n; i++) {
+      int  j = i - 1;
+      Node element = array[i];
+      while (j >= 0 && array[j].in <= element.in) {
+         if (array[j].in < element.in)
+            array[j + 1] = array[j];
+         if (array[j].in == element.in && array[j].out < element.out)
+            array[j + 1] = array[j];
+         if (array[j].in == element.in && array[j].out >= element.out)
+            break;
+         j--;
+      }
+      array[j + 1] = element;
    }
 }
 
-NodeT *bubbleSort(NodeT *p) {
-  if (p == NULL) {
-    return p;
-  }
-  
-  NodeT *out = p;
-  NodeT *inside = p;
-
-  int v;
-  int f1;
-  int f2;
-
-  while (out != NULL) {
-    for (inside = out -> next; inside != NULL;) {
-      if (out -> f2 < inside -> f2) {
-        v = out -> v;
-        out -> v = inside -> v;
-        inside -> v = v;
-
-        f1 = out -> f1;
-        out -> f1 = inside -> f1;
-        inside -> f1 = f1;
-
-        f2 = out -> f2;
-        out -> f2 = inside -> f2;
-        inside -> f2 = f2;
-      } else if (out -> f2 == inside ->f2) {
-        if (out -> f1 < inside -> f1) {
-        v = out -> v;
-        out -> v = inside -> v;
-        inside -> v = v;
-
-        f1 = out -> f1;
-        out -> f1 = inside -> f1;
-        inside -> f1 = f1;
-
-        f2 = out -> f2;
-        out -> f2 = inside -> f2;
-        inside -> f2 = f2;
-        } else if (out -> f1 == inside -> f1) {
-          if (out -> v > inside -> v) {
-          v = out -> v;
-          out -> v = inside -> v;
-          inside -> v = v;
-
-          f1 = out -> f1;
-          out -> f1 = inside -> f1;
-          inside -> f1 = f1;
-
-          f2 = out -> f2;
-          out -> f2 = inside -> f2;
-          inside -> f2 = f2;
-          }
-        }
-      }
-      inside = inside -> next;
-    }
-    out = out -> next;
-  }
-  return p;
-}
-
-// Count User's followers and following
-int countFollow(Graph g, Vertex v) {
-  int i;
-  int count = 0;
-  for (i = 0; i< g -> nV; i++) {
-    if (g -> edges[v][i] != 0) {
-      count++;
-    }
-  }
-  return count;
-}
-
-int countFollowed(Graph g, Vertex v) {
-  int i;
-  int count = 0;
-  for (i = 0; i< g -> nV; i++) {
-    if (g -> edges[i][v] != 0) {
-      count++;
-    }
-  }
-  return count;
-}
-
-// Show Function
-void showFollowBase(Graph g) {
-  assert(g != NULL);
-    int i;
-    NodeT *all = NULL;
-    NodeT *head = NULL;
-
-    // Assign Value to Link List
-    for (i = 0; i < g->nV; i++) {
-      if(all == NULL) {
-        all = newList(g,i);
-        head = all;
-      } else {
-        all = joinList(g,i,all);
-      }
-    }
-
-    head = bubbleSort(head);
-
-    for (i = 0; i< g->nV; i++) {
-      printf("%d has %d follower(s) and follows %d user(s).\n", head->v,head->f2,head->f1);
-      head = head->next;
-    }
-
-    freeList(head);
-}
-//
-
 int main() {
-  int num;
-  int flag1;
+   int   num;
+   int   key;
+   Edge  e;
+   Graph g;
 
-  printf("Enter the number of users: ");
-  flag1 = scanf("%d", &num);
-  if (flag1 == 1) {
-    Graph platform = newGraph(num);
-  
-    int follower;
-    int followed;
-    int flag2;
-
-    printf("Enter a user (follower): ");
-    flag2 = scanf("%d", &follower);
-
-    while (flag2 == 1 && validV(platform,follower)) {
-      printf("Enter a user (followed by %d): ", follower);
-      scanf("%d", &followed);
+   printf("Enter the number of users: ");
+   if (scanf("%d", &num) == 1)
+     g = newGraph(num);
+   else
+     printf("Done.\n");
  
-      assert(validV(platform,followed));
-    
-      Edge *e = newEdge(follower,followed);
-      insertEdge(platform, *e);
+   while (1) {
+     printf("Enter a user (follower): ");
+     if (scanf("%d", &key) == 1)
+       e.v = key;
+     else
+       break;
+     printf("Enter a user (followed by %d): ", e.v);
+     if (scanf("%d", &key) == 1)
+       e.w = key;
+     else
+       break;
+     e.weight = 1;
+     insertEdge(g, e);
+   }
+   printf("Done.\n\n");
+   printf("Ranking by follower base:\n");
+  
+   int  i,j;
+   Node user[num];
+   for (i = 0; i < num; i++) {
+     user[i].key = i;
+     user[i].in = 0;
+     user[i].out = 0;
+   }
+   for (i = 0; i < num; i++) {
+     for (j = 0; j < num; j++) {
+       if (adjacent(g, i, j) == 1)
+         user[i].out++;
+       if (adjacent(g, j, i) == 1)
+         user[i].in++;
+     }
+   }
 
-      printf("Enter a user (follower): ");
-      flag2 = scanf("%d", &follower);
-    }
-
-    printf("Done.\n\n");
-    printf("Ranking by follower base:\n");
-    showFollowBase(platform);
-    freeGraph(platform);
-  } else {
-    printf("Done.");
-  }
+   insertionSort(user, num);
+   for (i = 0; i < num; i++)
+      printf("%d has %d follower(s) and follows %d user(s).\n",
+      user[i].key, user[i].in, user[i].out);
 }
