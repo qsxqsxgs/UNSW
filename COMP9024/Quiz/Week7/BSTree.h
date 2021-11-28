@@ -12,6 +12,7 @@ void showTree(Tree);   // display a Tree (sideways)
 
 bool TreeSearch(Tree, Item);   // check whether an item is in a Tree
 int  TreeHeight(Tree);         // compute height of Tree
+int  TreeWidth(Tree);
 int  TreeNumNodes(Tree);       // count #nodes in Tree
 Tree TreeInsert(Tree, Item);   // insert a new item into a Tree
 Tree TreeDelete(Tree, Item);   // delete an item from a Tree
