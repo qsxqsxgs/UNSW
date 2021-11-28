@@ -20,7 +20,7 @@ A brief introduction is provided for each course.
   
   - Implementations given above ADT
   
-  - Altogether 1 assignment and 10 quizzes
+  - Altogether 1 assignment and 9 quizzes
   
 - COMP9032............Microprocessor and Interfacing
 
