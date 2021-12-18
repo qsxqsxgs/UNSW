@@ -16,9 +16,11 @@ A brief introduction is provided for each course.
   
 - COMP9024............Data Structure and Algorithm
 
+  - C programming
+
   - Queue, Stack, List, Graph, BST, etc...
   
-  - Implementations given above ADT
+  - Implementations above given ADT
   
   - Altogether 1 assignment and 9 quizzes
   
