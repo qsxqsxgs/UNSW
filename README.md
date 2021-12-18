@@ -29,3 +29,7 @@ A brief introduction is provided for each course.
   - AVR Programming
   
   - Altogether 1 project
+
+- COMP9203............Operating System
+
+- COMP9801............Extended Design & Analysis of Algorithms
