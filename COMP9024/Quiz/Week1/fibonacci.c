@@ -26,4 +26,5 @@ int main() {
     printf("Fib[%d] = %d\n", i, j);
     control(j);
   }
+  return 0;
 }
